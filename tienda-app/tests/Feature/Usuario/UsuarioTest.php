@@ -47,16 +47,19 @@ class UsuarioTest extends TestCase
     }
 
     public function test_usuario_eliminar():void{
-        $user = User::factory()->create([
-            'name' => 'test usuario'
+        $user = User::create([
+            'name' => 'Test Usuario',
+            'email' => 'usuario@gmail.com',
+            'password' => bcrypt('caracoles'),
+            'rol' => 'cliente'
         ]);
 
-        
-
-        $this->assertDatabaseHas('users', [
-            'name' => 'test usuario'
-        ]);
         $user->delete();
+
+        $this->assertDatabaseMissing('users', [
+            'name' => 'Test usuario'
+        ]);
+        
     }
 
     /**
