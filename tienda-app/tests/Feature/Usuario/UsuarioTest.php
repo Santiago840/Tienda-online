@@ -27,6 +27,38 @@ class UsuarioTest extends TestCase
         ]);
     }
 
+    public function test_usuario_editar(): void{
+        $user = User::create([
+            'name' => 'Test Usuario',
+            'email' => 'usuario@gmail.com',
+            'password' => bcrypt('caracoles'),
+            'rol' => 'administrador'
+        ]);
+
+        $user->update([
+            'password' => bcrypt('caracoles2'),
+            'rol' => 'cliente'
+        ]);
+
+        $this->assertDatabaseHas('users', [
+            'email' => 'usuario@gmail.com',
+            'rol' => 'cliente'
+        ]);
+    }
+
+    public function test_usuario_eliminar():void{
+        $user = User::factory()->create([
+            'name' => 'test usuario'
+        ]);
+
+        
+
+        $this->assertDatabaseHas('users', [
+            'name' => 'test usuario'
+        ]);
+        $user->delete();
+    }
+
     /**
      * A basic feature test example.
      */

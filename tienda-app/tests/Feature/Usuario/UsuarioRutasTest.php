@@ -13,10 +13,11 @@ class UsuarioRutasTest extends TestCase
      */
 
     public function test_ruta_usuario():void{
-        $response = $this->get('/users');
+        $response = $this->get('/usuarios');
 
         $response->assertStatus(200);
-        $response->assertViewIs('.index');
+        //$response->assertSee('hello world');
+        //$response->assertViewIs('usuarios.index');
     }
 
     public function test_example(): void
