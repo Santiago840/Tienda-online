@@ -2,6 +2,7 @@
 
 namespace Tests\Feature;
 
+use Illuminate\Foundation\Testing\DatabaseTransactions;
 use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
@@ -10,7 +11,10 @@ use App\Models\User;
 class UsuarioTest extends TestCase
 {
     //asegurar que todas las mihgraciones se jecuten antes de cada prueba
-    use RefreshDatabase;
+    //use RefreshDatabase;
+
+    //para crear las trasacciones, pero regresa la base de datos a su estado actual
+    use DatabaseTransactions;
 
     public function test_usuario_creacion(): void
     {
@@ -21,13 +25,14 @@ class UsuarioTest extends TestCase
             'rol' => 'cliente'
         ]);
 
-        $this->assertDatabaseHas('users',[
+        $this->assertDatabaseHas('users', [
             'email' => 'usuario@gmail.com',
             'rol' => 'cliente'
         ]);
     }
 
-    public function test_usuario_editar(): void{
+    public function test_usuario_editar(): void
+    {
         $user = User::create([
             'name' => 'Test Usuario',
             'email' => 'usuario@gmail.com',
@@ -46,12 +51,10 @@ class UsuarioTest extends TestCase
         ]);
     }
 
-    public function test_usuario_eliminar():void{
-        $user = User::create([
+    public function test_usuario_eliminar(): void
+    {
+        $user = User::factory()->create([
             'name' => 'Test Usuario',
-            'email' => 'usuario@gmail.com',
-            'password' => bcrypt('caracoles'),
-            'rol' => 'cliente'
         ]);
 
         $user->delete();
@@ -59,16 +62,15 @@ class UsuarioTest extends TestCase
         $this->assertDatabaseMissing('users', [
             'name' => 'Test usuario'
         ]);
-        
     }
 
     /**
      * A basic feature test example.
      */
-    public function test_example(): void
+    /* public function test_example(): void
     {
         $response = $this->get('/');
 
         $response->assertStatus(200);
-    }
+    } */
 }

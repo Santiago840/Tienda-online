@@ -4,15 +4,16 @@ namespace App\Http\Controllers;
 
 use App\Models\User;
 use Illuminate\Http\Request;
+use Illuminate\Http\Response;
 
 class UserController extends Controller
 {
     /**
      * Display a listing of the resource.
      */
-    public function index()
+    public function index(): Response
     {
-        return 'hello world'; 
+        return response('Hello World'); 
     }
 
     /**
@@ -20,7 +21,7 @@ class UserController extends Controller
      */
     public function create()
     {
-        //
+        
     }
 
     /**
@@ -28,7 +29,7 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
-        //
+       
     }
 
     /**

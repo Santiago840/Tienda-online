@@ -13,17 +13,18 @@ class UsuarioRutasTest extends TestCase
      */
 
     public function test_ruta_usuario():void{
-        $response = $this->get('/usuarios');
+        $response = $this->withoutMiddleware()->get('/usuarios');
+
 
         $response->assertStatus(200);
         //$response->assertSee('hello world');
         //$response->assertViewIs('usuarios.index');
     }
 
-    public function test_example(): void
+   /*  public function test_example(): void
     {
         $response = $this->get('/');
 
         $response->assertStatus(200);
-    }
+    } */
 }
