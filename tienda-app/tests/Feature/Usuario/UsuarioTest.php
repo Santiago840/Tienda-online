@@ -15,6 +15,7 @@ class UsuarioTest extends TestCase
 
     //para crear las trasacciones, pero regresa la base de datos a su estado actual
     use DatabaseTransactions;
+    //use RefreshDatabase;
 
     public function test_usuario_creacion(): void
     {
