@@ -11,9 +11,11 @@ class UserController extends Controller
     /**
      * Display a listing of the resource.
      */
-    public function index(): Response
-    {
-        return response('Hello World'); 
+    public function index()
+    {   
+        $usuarios = User::all();
+
+        return response()->json($usuarios);
     }
 
     /**
@@ -61,6 +63,6 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
-        //
+        $user->delete();
     }
 }
