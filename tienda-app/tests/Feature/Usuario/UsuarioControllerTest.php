@@ -4,11 +4,12 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class UsuarioControllerTest extends TestCase
 {
-    use DatabaseTransactions;
+    use DatabaseTransactions, WithFaker;
     /**
      * A basic feature test example.
      */
@@ -26,13 +27,21 @@ class UsuarioControllerTest extends TestCase
 
     public function test_crear_usuario(): void
     {
-        $usuario = User::factory()->create([
-            'name' => 'Test Usuario'
-        ]);
-        $response = $this->withoutMiddleware()->actingAs($usuario)->post('/usuarios');
+        $usuario =
+            [
+                'name' => 'santiago',
+                'email' => 'usuarios@gmail.com',
+                'password' => bcrypt('caracoles1234'),
+                'rol' => 'cliente'
+            ];
+        $response = $this->withoutMiddleware()->post(route('usuarios.store'), $usuario);
 
-        $response->assertStatus(200);
+        $response->assertRedirect(route('usuarios.index'));
 
-        $this->assertDatabaseHas('users', ['name' => 'Test Usuario']);
+        $response->assertSessionHas('success', 'Usuario creado exitosamente.');
+
+        //$response->assertSessionHasErrors('password');
+        /*$usuario == User::factory()->create();
+        $this->assertDatabaseHas('users', $usuario); */
     }
 }
