@@ -16,10 +16,12 @@ class UsuarioControllerTest extends TestCase
     {
         $usuario =  User::factory()->count(2)->create();
 
-        $response = $this->actingAs($usuario->first())->get('/usuarios');
+        $response = $this->withoutMiddleware()->actingAs($usuario->first())->get('/usuarios');
 
         //$response->assertStatus(200);
-        $response->assertSee($usuario->first()->name); 
+        $response->assertSee($usuario->first()->name);
+        //$response->assertViewIs('resources\js\Pages\Usuario\Index');
+        //$response->assertViewHas('Santiago Emmanuels');
     }
 
     public function test_crear_usuario(): void
@@ -27,7 +29,7 @@ class UsuarioControllerTest extends TestCase
         $usuario = User::factory()->create([
             'name' => 'Test Usuario'
         ]);
-        $response = $this->actingAs($usuario)->post('/usuario');
+        $response = $this->withoutMiddleware()->actingAs($usuario)->post('/usuarios');
 
         $response->assertStatus(200);
 

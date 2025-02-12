@@ -21,7 +21,7 @@ class UsuarioRutasTest extends TestCase
     }
 
     public function test_ruta_usuario_crear():void{
-        $response = $this->withoutMiddleware()->post('/usuario');
+        $response = $this->withoutMiddleware()->post('/usuarios');
 
         $response->assertStatus(200);
     }

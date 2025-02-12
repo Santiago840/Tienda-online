@@ -8,5 +8,8 @@ use Illuminate\Support\Facades\Route;
     //Necesitamos crear un middleware para saber que solo los administradores puedan acceder a esto
     ->middleware(['auth', 'verified']); */
 
-Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios');
-Route::post('/usuario', [UserController::class, 'store'])->name('usuario.agregar');
+/* Route::get('/usuarios', [UserController::class, 'index'])->name('usuarios');
+Route::post('/usuario', [UserController::class, 'store'])->name('usuario.agregar'); */
+
+Route::resource('/usuarios', UserController::class)
+->only(['index', 'store'])->middleware(['verified', 'auth', 'admin']);
