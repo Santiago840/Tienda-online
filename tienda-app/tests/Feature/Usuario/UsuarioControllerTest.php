@@ -4,12 +4,14 @@ namespace Tests\Feature;
 
 use App\Models\User;
 use Illuminate\Foundation\Testing\DatabaseTransactions;
+use Illuminate\Foundation\Testing\RefreshDatabase;
 use Illuminate\Foundation\Testing\WithFaker;
 use Tests\TestCase;
 
 class UsuarioControllerTest extends TestCase
 {
-    use DatabaseTransactions, WithFaker;
+    //use DatabaseTransactions, WithFaker;
+    use RefreshDatabase;
     /**
      * A basic feature test example.
      */
@@ -41,6 +43,28 @@ class UsuarioControllerTest extends TestCase
         //$response->assertSessionHasErrors('password');
         /*$usuario == User::factory()->create();
         $this->assertDatabaseHas('users', $usuario); */
+    }
+
+    public function test_editar_usuario(): void
+    {
+        $usuario = User::factory()->create(
+            [
+                'rol' => 'administrador'
+            ]
+        );
+        $datos =
+            [
+                'name' => 'santiago',
+                'email' => 'usuarios@gmail.com',
+                'password' => bcrypt('caracoles1234'),
+                'rol' => 'cliente'
+            ];
+
+        $this->actingAs($usuario);
+
+        $response = $this->withoutMiddleware()->put(route('usuarios.update', $usuario), $datos);
+
+        $response->assertSessionHas('success', 'Usuario correctamente actualizado.');
     }
 
     public function test_eliminar_usuario()

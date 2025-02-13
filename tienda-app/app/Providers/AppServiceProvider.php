@@ -25,7 +25,9 @@ class AppServiceProvider extends ServiceProvider
     public function boot(): void
     {
         /*         Gate::policy(User::class, UserPolicy::class); */
+        Gate::define('updateUsuario', [UserPolicy::class, 'update']);
         Gate::define('deleteUsuario', [UserPolicy::class, 'delete']);
+
         Vite::prefetch(concurrency: 3);
     }
 }

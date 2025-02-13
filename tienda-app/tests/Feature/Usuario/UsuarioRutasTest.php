@@ -13,8 +13,8 @@ class UsuarioRutasTest extends TestCase
     /**
      * A basic feature test example.
      */
-    use DatabaseTransactions;
-    //use RefreshDatabase;
+    //use DatabaseTransactions;
+    use RefreshDatabase;
 
     public function test_obtener_usuario(): void
     {
@@ -33,6 +33,21 @@ class UsuarioRutasTest extends TestCase
         //$response->assertSessionHasErrors();
     }
 
+    public function test_editar_usuario(): void
+    {
+        $admin = User::factory()->create([
+            'rol' => 'administrador'
+        ]);
+        $usuario = User::factory()->create();
+
+        $datos = [
+            'name' => 'usuarioTest'
+        ];
+
+        $response = $this->actingAs($admin)->withoutMiddleware()->put(route('usuarios.update', $usuario), $datos);
+        $response->assertStatus(302);
+    }
+
     public function test_eliminar_usuario(): void
     {
         $admin = User::create([
@@ -47,11 +62,4 @@ class UsuarioRutasTest extends TestCase
         $response = $this->actingAs($admin)->withoutMiddleware()->delete(route('usuarios.destroy', $usuario));
         $response->assertStatus(302);
     }
-
-    /*  public function test_example(): void
-    {
-        $response = $this->get('/');
-
-        $response->assertStatus(200);
-    } */
 }

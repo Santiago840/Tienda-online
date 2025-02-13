@@ -72,9 +72,19 @@ class UserController extends Controller
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, User $user)
+    public function update(Request $request, User $user): RedirectResponse
     {
-        //
+        Gate::authorize('updateUsuario', $user);
+
+        $validate = $request->validate([
+            'name' => 'required|string|max:255',
+            'email' => 'required|string|max:255|unique:users,email',
+            'rol' => 'required|string'
+        ]);
+
+        $user->update($validate);
+
+        return redirect(route('usuarios.index'))->with('success', 'Usuario correctamente actualizado.');
     }
 
     /**
