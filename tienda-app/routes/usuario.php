@@ -12,5 +12,5 @@ use Illuminate\Support\Facades\Route;
 Route::post('/usuario', [UserController::class, 'store'])->name('usuario.agregar'); */
 
 Route::resource('usuarios', UserController::class)
-    ->only(['index', 'store'])
+    ->only(['index', 'store', 'destroy'])
     ->middleware(['verified', 'auth', 'admin']);

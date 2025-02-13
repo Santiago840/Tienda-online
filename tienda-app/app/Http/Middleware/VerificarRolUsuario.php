@@ -17,7 +17,7 @@ class VerificarRolUsuario
     {
         if(!$request->user() || $request->user()->rol != 'administrador'){
             //return response()->json(['error' => '']);
-            return redirect('/');
+            return redirect('/dashboard');
         }
         return $next($request);
     }
