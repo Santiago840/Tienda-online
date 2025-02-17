@@ -30,3 +30,4 @@ Route::get('/admin', function () {
 
 require __DIR__ . '/auth.php';
 require __DIR__ . '/usuario.php';
+require __DIR__ . '/categoria.php';
