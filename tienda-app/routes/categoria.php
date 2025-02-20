@@ -5,5 +5,5 @@ use Illuminate\Support\Facades\Route;
 
 
 Route::resource('categorias', CategoryController::class)
-    ->only(['index', 'store', 'update', 'delete'])
+    ->only(['index', 'store', 'update', 'destroy'])
     ->middleware(['auth', 'verified', 'admin']);

@@ -33,7 +33,7 @@ class CategoriaRutaTest extends TestCase
             'name' => 'Nueva categoria',
         ];
 
-        $response = $this->withoutMiddleware()->put(route('categorias.update'), $datos, $categoria->id);
+        $response = $this->withoutMiddleware()->put(route('categorias.update', $categoria->id), $datos);
 
         $response->assertStatus(302);
     }
